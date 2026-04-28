@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from routes import sensors, alerts
 
-# Create the FastAPI app
 app = FastAPI(
     title="AquaGrid API",
     description="Backend API for AquaGrid - Solar powered atmospheric water generation system",
@@ -10,12 +9,11 @@ app = FastAPI(
     redoc_url="/redoc"
 )
 
-# Register routes
 app.include_router(sensors.router, prefix="/sensors", tags=["Sensors"])
 app.include_router(alerts.router, prefix="/alerts", tags=["Alerts"])
 
-# Home route
 @app.get("/")
+@app.head("/")
 def home():
     return {
         "message": "Welcome to the AquaGrid API 🌊",
