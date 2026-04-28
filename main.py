@@ -5,7 +5,9 @@ from routes import sensors, alerts
 app = FastAPI(
     title="AquaGrid API",
     description="Backend API for AquaGrid - Solar powered atmospheric water generation system",
-    version="1.0"
+    version="1.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
 # Register routes
