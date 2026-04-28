@@ -112,16 +112,20 @@ async def get_alert_history():
     return alerts
 
 # GET - Get alert count summary
+# GET - Get alert count summary
 @router.get("/summary")
 async def get_alert_summary():
-    total = await alert_collection.count_documents({})
-    high_tds = await alert_collection.count_documents({"alert_type": "High TDS"})
-    unsafe_ph = await alert_collection.count_documents({"alert_type": "Unsafe pH"})
-    low_battery = await alert_collection.count_documents({"alert_type": "Low Battery"})
+    try:
+        total = await alert_collection.count_documents({})
+        high_tds = await alert_collection.count_documents({"alert_type": "High TDS"})
+        unsafe_ph = await alert_collection.count_documents({"alert_type": "Unsafe pH"})
+        low_battery = await alert_collection.count_documents({"alert_type": "Low Battery"})
 
-    return {
-        "total_alerts": total,
-        "high_tds_alerts": high_tds,
-        "unsafe_ph_alerts": unsafe_ph,
-        "low_battery_alerts": low_battery
-    }
+        return {
+            "total_alerts": total,
+            "high_tds_alerts": high_tds,
+            "unsafe_ph_alerts": unsafe_ph,
+            "low_battery_alerts": low_battery
+        }
+    except Exception as e:
+        return {"error": str(e)}
